@@ -14,6 +14,13 @@ public class EmployeeController: ControllerBase
         _employeeRepository = employeeRepository;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+    {
+        var allEmployees = await _employeeRepository.GetAllAsync();
+        return Ok(allEmployees);
+    }
+
     [HttpPost]
     public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
     {
@@ -35,9 +42,5 @@ public class EmployeeController: ControllerBase
          */
     }
 
-    [HttpGet]
-    public async Task<IEnumerable<Employee>> GetEmployees()
-    {
-        return await _employeeRepository.GetAllAsync();
-    }
+
 }
