@@ -1,4 +1,5 @@
 using EmployeeManagement.Data;
+using EmployeeManagement.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
 
@@ -29,6 +30,11 @@ public class Program
         {
             options.UseInMemoryDatabase("EmployeeDb");
         });
+
+        //add the employee repository to the DI(dependency injection) container
+        builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+        builder.Services.AddControllers();
 
         var app = builder.Build();
 
