@@ -17,8 +17,22 @@ public class EmployeeController: ControllerBase
     [HttpPost]
     public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
     {
-       await _employeeRepository.AddEmployeeAsync(employee);
+        await _employeeRepository.AddEmployeeAsync(employee);
         return Created();
+
+        //example of the employee object
+        /*
+         
+         {
+          "id": 0,
+          "firstName": "johb",
+          "lastName": "doe",
+          "email": "jd@doe.com",
+          "phone": "1234",
+          "position": "manager"
+          }
+
+         */
     }
 
     [HttpGet]

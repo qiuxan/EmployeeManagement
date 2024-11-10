@@ -17,7 +17,6 @@ public class EmployeeRepository : IEmployeeRepository
     {
         await _context.Employees.AddAsync(employee);
         await _context.SaveChangesAsync();
-
     }
 
     public async Task DeleteEmployeeAsync(int id)
