@@ -1,5 +1,7 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.Model;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Repositories;
 
@@ -12,7 +14,9 @@ public class EmployeeRepository : IEmployeeRepository
     }
     public async Task AddEmployeeAsync(Employee employee)
     {
-        throw new NotImplementedException();
+        await _context.Employees.AddAsync(employee);
+        await _context.SaveChangesAsync();
+
     }
 
     public async Task DeleteEmployeeAsync(int id)
