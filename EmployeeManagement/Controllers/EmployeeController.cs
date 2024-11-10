@@ -54,5 +54,13 @@ public class EmployeeController: ControllerBase
          */
     }
 
+    [HttpDelete]
+    [Route("{id}")]
+    public async Task<ActionResult> DeleteEmployeeById(int id)
+    {
 
+        await _employeeRepository.DeleteEmployeeAsync(id);
+
+        return NoContent();
+    }
 }
