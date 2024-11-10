@@ -22,7 +22,15 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task DeleteEmployeeAsync(int id)
     {
-        throw new NotImplementedException();
+        var employeeInDb = await _context.Employees.FindAsync(id);
+
+        if (employeeInDb is null) 
+        {
+            throw new KeyNotFoundException($"Employee with {id} not found.");
+        }
+
+        _context.Employees.Remove(employeeInDb);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<Employee>> GetAllAsync()
@@ -36,8 +44,10 @@ public class EmployeeRepository : IEmployeeRepository
         return await _context.Employees.FindAsync(id);
     }
 
-    public async Task UpdateEmployeeAsync(Employee employeeChanges)
+    public async Task UpdateEmployeeAsync(Employee employee)
     {
-        throw new NotImplementedException();
+        _context.Employees.Update(employee);
+        await _context.SaveChangesAsync();
+
     }
 }
