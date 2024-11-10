@@ -15,10 +15,22 @@ public class EmployeeController: ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+    public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployeesAsync()
     {
         var allEmployees = await _employeeRepository.GetAllAsync();
         return Ok(allEmployees);
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult<Employee>> GetEmployeeByIdAsync(int id)
+    {
+        var employee = await _employeeRepository.GetByIdAsync(id);
+        if (employee is null)
+        {
+            return NotFound();
+        }
+        return Ok(employee);
     }
 
     [HttpPost]
