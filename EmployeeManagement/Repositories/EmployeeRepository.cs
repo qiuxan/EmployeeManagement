@@ -2,6 +2,7 @@
 using EmployeeManagement.Model;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Repositories;
 
@@ -26,12 +27,13 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<IEnumerable<Employee>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Employees.ToListAsync();
+
     }
 
-    public async Task<Employee> GetByIdAsync(int id)
+    public async Task<Employee?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Employees.FindAsync(id);
     }
 
     public async Task UpdateEmployeeAsync(Employee employeeChanges)
