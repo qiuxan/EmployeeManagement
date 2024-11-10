@@ -6,7 +6,7 @@ namespace EmployeeManagement.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class EmployeeController: ControllerBase
+public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeRepository _employeeRepository;
     public EmployeeController(IEmployeeRepository employeeRepository)
@@ -37,7 +37,7 @@ public class EmployeeController: ControllerBase
     public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
     {
         await _employeeRepository.AddEmployeeAsync(employee);
-        return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id},employee);
+        return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
 
         //example of the employee object
         /*
@@ -63,4 +63,17 @@ public class EmployeeController: ControllerBase
 
         return NoContent();
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Employee>> UpdateEmployee(int id,Employee employee)
+    {
+        if (id != employee.Id)
+        {
+            return BadRequest();
+        }
+
+        await _employeeRepository.UpdateEmployeeAsync(employee);
+        return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
+    }
+
 }
