@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Employee } from '../../models/employee';
-
+import { EmployeeService } from '../employee.service';
 @Component({
   selector: 'app-employee-form',
   standalone: true,
@@ -10,6 +10,13 @@ import { Employee } from '../../models/employee';
   styleUrl: './employee-form.component.css'
 })
 export class EmployeeFormComponent {
+
+  /**
+   *
+   */
+  constructor(private employeeService: EmployeeService) {
+    
+  }
 
   employee: Employee = {
     id: 0,
@@ -21,7 +28,10 @@ export class EmployeeFormComponent {
   }
 
   onSubmit():void {
-    console.log(this.employee);
+    this.employeeService.createEmployee(this.employee)
+    .subscribe((result) => {
+      console.log({result});
+    });
   }
 
 }
