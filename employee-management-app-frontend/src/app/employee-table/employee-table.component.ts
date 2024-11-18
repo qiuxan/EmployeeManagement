@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './employee-table.component.html',
   styleUrl: './employee-table.component.css'
 })
-export class EmployeeTableComponent {
+export class EmployeeTableComponent implements OnInit {
   employees: Employee[] = [];
   constructor(private employeeService: EmployeeService) { }
   ngOnInit() {
@@ -17,5 +17,18 @@ export class EmployeeTableComponent {
       this.employees = data;
       console.log({data});
     });
+  }
+
+  deleteEmployee(id: number) {
+    this.employeeService.deleteEmployee(id)
+    .subscribe({
+      next: () => {
+        this.employees = this.employees.filter(e => e.id !== id);
+      },
+      error: (error) => {
+        console.log({error});
+      }
+    });
+
   }
 }
