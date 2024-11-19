@@ -1,4 +1,4 @@
-<h2>Create Employee</h2>
+<h2>{{isEditing? "Edit" :"Add"}} Employee</h2>
 <div *ngIf="errorMessage != ''">
   {{errorMessage}}
 </div>
@@ -24,5 +24,5 @@
     <label for="position">Position:</label>
     <input type="text" id="position" [(ngModel)]="employee.position" name="position" required>
   </div>
-  <button type="submit">Submit</button>
+  <button type="submit">{{isEditing ? "Update": "Create"}}</button>
 </form>

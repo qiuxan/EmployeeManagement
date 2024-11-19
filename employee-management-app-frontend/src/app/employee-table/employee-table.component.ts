@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../../models/employee';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'employee-table',
   standalone: true,
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class EmployeeTableComponent implements OnInit {
   employees: Employee[] = [];
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, private router: Router) { }
   ngOnInit() {
     this.employeeService.getEmployees().subscribe((data:Employee[]) => {
       this.employees = data;
@@ -30,5 +31,9 @@ export class EmployeeTableComponent implements OnInit {
       }
     });
 
+  }
+
+  editEmployee(id: number) {
+    this.router.navigate(['/edit', id]);
   }
 }
